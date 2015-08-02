@@ -1,0 +1,26 @@
+require File.expand_path('../boot', __FILE__)
+
+require "rails"
+# Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
+require "active_record/railtie"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "sprockets/railtie"
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
+
+module SoapService
+  class Application < Rails::Application
+    config.generators do |g|
+      g.template_engine :haml
+      g.test_framework :rspec, :fixture => true, :views => false
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+    end
+    config.active_record.raise_in_transactional_callbacks = true
+  end
+end

@@ -1,0 +1,14 @@
+SET UP
+
+- clone the application and open root folder in the terminal
+- run 'bundle'
+- set up cron service to work properly (if there are some problems)
+- run  'whenever -w' in root of project
+- run 'rails s'
+- visit localhost:3000
+
+VERIFYING APP
+
+- click on country flag at left top corner
+- select any country
+- you should see code, name, currency and currency code of selected country

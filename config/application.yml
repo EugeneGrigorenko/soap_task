@@ -1,0 +1,8 @@
+common_attr: &common_attr
+  CURRENCY_SERVICE_LINK: http://www.webservicex.net/country.asmx?WSDL
+
+development:
+  <<: *common_attr
+
+test:
+  <<: *common_attr
