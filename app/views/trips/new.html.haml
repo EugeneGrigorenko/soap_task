@@ -1,0 +1,12 @@
+%textarea#description(placeholder="Describe your trip")
+%br
+Start date:
+%input#start-date(type="date" placeholder="Start date of your trip")
+%br
+End date:
+%input#end-date(type="date" placeholder="End date of your trip")
+%p
+Select vsited countries:
+%br
+= select_tag 'countries', options_from_collection_for_select(@countries, "id", "name"), multiple: true, style: 'height:300px'
+= button_tag "Create trip", id: 'save-trip'
