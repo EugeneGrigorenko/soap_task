@@ -22,6 +22,7 @@ gem 'country-select'
 gem 'haml'
 gem 'figaro'
 gem 'whenever'
+gem 'devise'
 
 
 group :development, :test do

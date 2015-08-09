@@ -19,24 +19,36 @@ class CountriesData
 
   def parse_and_save_xml(str)
     parsed_xml = Nokogiri.XML(str)
-    parsed_xml.root.search('Table').each { |t| update_country(t) }
+    parsed_xml.root.search('Table').each { |t| process_country_with_currency(t) }
   end
 
-  def update_country(table)
-    country = find_country_by_code(table.at_css('CountryCode').children.text)
-    country.name = table.at_css('Name').children.text
-    country.currency = update_currency(country.id, table)
+  def process_country_with_currency(table)
+    country = get_updated_country(table)
+    country.currency = get_updated_currency(table)
     country.save
   end
 
-  def update_currency(country_id, table)
-    currency = Currency.where(country_id: country_id).first_or_initialize
-    currency.code = table.at_css('CurrencyCode').children.text
-    currency.name = table.at_css('Currency').children.text
-    currency
+  def get_updated_country(table)
+    country = find_country_record(get_text_from_tag('CountryCode', table))
+    country.name = get_text_from_tag('Name', table)
+    country
   end
 
-  def find_country_by_code(code)
+  def get_updated_currency(table)
+    code = get_text_from_tag('CurrencyCode', table)
+    name = get_text_from_tag('Currency', table)
+    find_currency_record(name, code) if code.present? || name.present?
+  end
+
+  def find_currency_record(name, code)
+    Currency.where(name: name, code: code).first_or_create
+  end
+
+  def find_country_record(code)
     Country.where(code: code).first_or_initialize
+  end
+
+  def get_text_from_tag(css_name, table)
+    table.at_css(css_name).children.text.strip
   end
 end

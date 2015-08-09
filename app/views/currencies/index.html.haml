@@ -1,0 +1,25 @@
+- if user_signed_in?
+  - if @hide_visited
+    = link_to 'Show visited countries', currencies_path
+  - else
+    = link_to 'Hide visited countries', currencies_path(hide_visited: true)
+
+%ol
+  - @currencies.each do |currency|
+    %li
+      %p
+        Currency name:
+        = link_to currency.name, currency_path(currency)
+      %p
+        Currency code:
+        %span
+          = currency.code
+      %p
+        Countries for this currency:
+        %span
+          = link_to currency.countries.size, currency_path(currency)
+      - if user_signed_in?
+        %p
+          Not visited countries:
+          %span
+            = currency.not_visited_countries_size

@@ -1,0 +1,20 @@
+%h4
+  Currency name:
+  %span
+    = @currency.name
+
+Countries for this currency:
+%ul
+  - @currency.countries.each do |country|
+    %li
+      %p
+        Country name:
+        %span
+          = country.name
+      %p
+        Country code:
+        %span
+          = country.code
+      - if user_signed_in?
+        = check_box_tag "visited-country", country.id, !country.countries_users_relations.empty?, class: 'visited-mark'
+        I've been there

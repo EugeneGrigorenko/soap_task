@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Currency do
   context 'Associations' do
-    it { is_expected.to belong_to(:country) }
+    it { is_expected.to have_many(:countries) }
   end
 
   context 'Validations' do

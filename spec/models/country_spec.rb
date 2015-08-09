@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Country do
   context 'Associations' do
-    it { is_expected.to have_one(:currency).dependent(:destroy) }
+    it { is_expected.to belong_to(:currency) }
   end
 
   context 'Validations' do

@@ -1,0 +1,26 @@
+- if @trips.any?
+  %h4 Made trips
+- else
+  %h4 You have no trips yet
+  = link_to 'Create a trip', new_trip_path
+
+%ol
+- @trips.each do |trip|
+  %li
+    %p
+      Number of visited countries:
+      %span
+        = trip.countries.size
+    %p
+      Start date:
+      %span
+        = trip.start_date
+    %p
+      End date:
+      %span
+        = trip.end_date
+    %p
+      Description:
+      %p
+        = trip.description
+  %hr
