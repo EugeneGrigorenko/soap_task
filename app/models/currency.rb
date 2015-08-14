@@ -18,4 +18,9 @@ class Currency < ActiveRecord::Base
     end
     countries.size - visited_count
   end
+
+  def self.without_visited(user_id)
+    includes(countries: :countries_users_relations)
+    .where(id: Country.not_visited(user_id).select('countries.currency_id'))
+  end
 end

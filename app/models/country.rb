@@ -9,4 +9,13 @@ class Country < ActiveRecord::Base
 
   scope :by_code, -> (code) { find_by(code: code) }
   scope :with_currency, -> { includes(:currency) }
+
+  def self.not_visited(user_id)
+    where.not(id: CountriesUsersRelation.select(:country_id).where(user_id: user_id))
+
+    # RAW SQL
+    # Country.find_by_sql("SELECT * FROM countries
+    # LEFT JOIN countries_users_relations cur ON countries.id = cur.country_id AND cur.user_id = (?)
+    # WHERE cur.id IS NULL", user_id)
+  end
 end
